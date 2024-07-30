@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<title>Input language - AutoProof</title>
+		<link rel="stylesheet" href="/trunk/assets/css/main.css">
+		<link rel="stylesheet" href="/trunk/assets/css/highlight.css">
+	</head>
+	<body class="flex">
+		<div class="flex-1 flex flex-row-reverse">
+			
+				<nav class="w-[16rem]">
+					<div class="h-20 bg-gradient-to-tl from-red-50"></div>
+					<ul class="bg-gradient-to-bl from-red-50 pb-6">
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/index.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Tutorial
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/verification-of-basic-properties.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Verification of basic properties
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<span class="min-h-8 pl-4 flex items-center bg-red-100 align-middle">Input language</span>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/basic-properties.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Basic properties
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/models.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Models
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/framing.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Framing
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/routine-annotations.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Routine annotations
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/debugging-verification.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Debugging verification
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/hands-on-clock.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Hands-on: Clock
+									</a>
+								
+							</li>
+						
+					</ul>
+				</nav>
+			
+		</div>
+		<div class="w-full md:w-[50rem]">
+			<header class="mx-auto w-full bg-red-700 text-white h-16">
+				<ul class="flex items-center h-full">
+					<li class="pl-6">
+						<a href="/trunk/">Home</a>
+					</li>
+					<li class="pl-6">
+						<a href="/trunk/tutorial">Tutorial</a>
+					</li>
+				</ul>
+			</header>
+
+			<main class="prose prose-headings:text-red-700 pt-4 mx-auto">
+				<h3 id="input-language">Input Language</h3>
+<h4 id="eiffel-programs-and-contracts">Eiffel Programs and Contracts</h4>
+<p>Here we give a short overview of the Eiffel programming language based on
+the <em>Account</em> example.</p>
+
+<h5 id="class-definition">Class definition</h5>
+<p>Eiffel is an object-oriented programming language. Classes
+are defined with the <code class="language-plaintext highlighter-rouge">class</code> keyword. If no inheritance clause is given (as in
+this example), then the class implicitly inherits from the class <code class="language-plaintext highlighter-rouge">ANY</code>, which
+serves as a common ancestor for all classes.</p>
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span>
+  <span class="nc">ACCOUNT</span>
+</code></pre></div></div>
+
+<h5 id="constructors">Constructors</h5>
+<p>To define constructors for the class, you can use the <code class="language-plaintext highlighter-rouge">create</code>
+keyword, followed by a comma-separated list of constructors called <em>creation routines</em>.
+If no constructor is defined, the routine <code class="language-plaintext highlighter-rouge">default_create</code> will implicitly
+become the only creation routine. In our example the routine <code class="language-plaintext highlighter-rouge">make</code>
+will be the creation procedure.</p>
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">create</span>
+  <span class="n">make</span>
+</code></pre></div></div>
+
+<h5 id="features-and-visibility">Features and visibility</h5>
+<p>Routines and attributes (together called <em>features</em>)
+are defined in feature blocks using the <code class="language-plaintext highlighter-rouge">feature</code> keyword. Feature blocks can
+declare a visibility restriction by indicating a list of class names in curly
+braces. For example the first feature block restricts the access of the make
+routine to <code class="language-plaintext highlighter-rouge">NONE</code>, essentially hiding the routine from all other classes (no class
+can inherit from <code class="language-plaintext highlighter-rouge">NONE</code>). The other feature blocks do not have any access
+restriction and thus the features inside these feature blocks are public. It is
+common to name feature clauses by adding a comment using the double-dash
+<code class="language-plaintext highlighter-rouge">--</code> comment style (there are no multi-line comments in Eiffel).</p>
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">feature</span> <span class="pi">{</span><span class="nc">NONE</span><span class="pi">}</span> <span class="c1">-- Initialization</span>
+<span class="k">feature</span> <span class="c1">-- Access</span>
+<span class="k">feature</span> <span class="c1">-- Basic operations</span>
+</code></pre></div></div>
+
+<h5 id="attributes">Attributes</h5>
+<p>Attributes are defined with an attribute name followed by the
+type of the attribute. For all features it is common to add a comment on the
+line following the feature declaration.</p>
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">balance</span><span class="pi">:</span> <span class="nc">INTEGER</span>
+	<span class="c1">-- Balance of this account.</span>
+</code></pre></div></div>
+
+<h5 id="routines">Routines</h5>
+<p>A routine declaration consists of the routine name, optional parameters,
+optional return type, optional precondition, routine body and optional
+postcondition. The precondition denoted by the <code class="language-plaintext highlighter-rouge">require</code> keyword
+and postcondition denoted by the <code class="language-plaintext highlighter-rouge">ensure</code> keyword are the specification of
+the routine. The precondition holds prior to the execution of the routine,
+and the postcondition holds afterwards. Therefore the precondition is the
+responsibility of the client of the routine, whereas the postcondition has to
+be established by the routine itself. If a pre- or postcondition is omitted, the
+routine will have an implicit pre- or postcondition of <code class="language-plaintext highlighter-rouge">True</code>.</p>
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">set_credit_limit</span> <span class="pi">(</span><span class="n">limit</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">)</span>
+	<span class="c1">-- Set ‘credit_limit’ to ‘limit’.</span>
+  <span class="k">require</span>
+	<span class="n">limit_valid</span><span class="pi">:</span> <span class="n">limit</span> <span class="o">≥</span> <span class="pi">(</span><span class="mi">0</span><span class="pi">).</span><span class="n">max</span><span class="pi">(</span><span class="o">−</span><span class="n">balance</span><span class="pi">)</span>
+	<span class="n">modify_model</span> <span class="pi">(</span><span class="s2">"credit_limit"</span><span class="pi">,</span> <span class="kv">Current</span><span class="pi">)</span>
+  <span class="k">do</span>
+	<span class="n">credit_limit</span> <span class="pi">:=</span> <span class="n">limit</span>
+  <span class="k">ensure</span>
+	<span class="n">credit_limit_set</span><span class="pi">:</span> <span class="n">credit_limit</span> <span class="o">=</span> <span class="n">limit</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<h5 id="assertion-tags">Assertion tags</h5>
+<p>Each assertion, be it a precondition, a postcondition, a
+class or loop invariant, or an intermediate check instruction, can have an
+<em>assertion tag</em>. These tags are useful for debugging, as the feedback from
+AutoProof will specify the tag of violated assertions.</p>
+
+<h5 id="class-invariants">Class invariants</h5>
+<p>Class invariants are written at the end of a class using
+the <em>invariant</em> keyword. Class invariants define the state of a consistent
+object and hold by default whenever an object is visible to other classes, for
+example at the beginning and end of each public routine.</p>
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">invariant</span>
+  <span class="n">credit_limit_not_negative</span><span class="pi">:</span> <span class="n">credit_limit</span> <span class="o">≥</span> <span class="mi">0</span>
+  <span class="n">balance_not_below_credit</span><span class="pi">:</span> <span class="n">balance</span> <span class="o">≥</span> <span class="o">−</span><span class="n">credit_limit</span>
+</code></pre></div></div>
+<p>There are more details on how to write an Eiffel program and what spec-
+ification can be written for the verification with AutoProof; this will be ex-
+plained throughout the rest of the tutorial.</p>
+
+<h4 id="autoproof-annotations">AutoProof Annotations</h4>
+<p>AutoProof supports tow forms of custom annotations: note clauses for fea-
+tures and classes, and dummy routines made available through <em>ANY</em>.</p>
+
+<p>Note clauses are used to denote special types of routines and attributes
+that influence the verification like creation routines (see (TODO: add link) Section 1.5) or ghost
+features (see (TODO: add link) Section 2.6). Additionally, note clauses are used to disable
+defaults for implicit pre-/postconditions of the ownership methodology (see
+(TODO: add link) Section 3.4).</p>
+
+<p>The second form of AutoProof annotations are dummy features (routines
+and functions with empty implementation) that can be used in assertions
+or regular code. These features are defined in class <code class="language-plaintext highlighter-rouge">ANY</code> and are available
+everywhere. AutoProof gives special semantics to these features, for example
+to specify modifies clauses (see (TODO: add link) Section 1.4).</p>
+
+<p>You can look at the AutoProof <a href="https://se.inf.ethz.ch/research/autoproof/manual/#annotations">manual</a> (TODO: copy manual)
+for a complete listing of custom
+annotations of both note clauses and dummy features.</p>
+
+			</main>
+
+			
+				<div class="flex w-[40rem] mx-auto mt-10 mb-10">
+					
+						<a
+							href="/trunk/tutorial/verification-of-basic-properties.html"
+										class="block flex-1 text-red-800 hover:text-red-600 mr-4"
+						>
+							← Previous page <br>
+							<span class="font-bold">Verification of basic properties</span>
+						</a>
+					
+
+					
+						<div class="w-[1px] self-center h-6 bg-red-800"></div>
+					
+
+					
+						<a
+							href="/trunk/tutorial/basic-properties.html"
+										class="block flex-1 text-red-800 hover:text-red-600 text-right ml-4"
+						>
+							Next page → <br>
+							<span class="font-bold">Basic properties</span>
+						</a>
+					
+				</div>
+			
+		</div>
+
+		<div class="flex-1"></div>
+  </body>
+</html>

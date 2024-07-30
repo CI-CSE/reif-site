@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<title>Framing - AutoProof</title>
+		<link rel="stylesheet" href="/trunk/assets/css/main.css">
+		<link rel="stylesheet" href="/trunk/assets/css/highlight.css">
+	</head>
+	<body class="flex">
+		<div class="flex-1 flex flex-row-reverse">
+			
+				<nav class="w-[16rem]">
+					<div class="h-20 bg-gradient-to-tl from-red-50"></div>
+					<ul class="bg-gradient-to-bl from-red-50 pb-6">
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/index.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Tutorial
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/verification-of-basic-properties.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Verification of basic properties
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/input-language.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Input language
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/basic-properties.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Basic properties
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/models.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Models
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<span class="min-h-8 pl-4 flex items-center bg-red-100 align-middle">Framing</span>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/routine-annotations.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Routine annotations
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/debugging-verification.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Debugging verification
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/hands-on-clock.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Hands-on: Clock
+									</a>
+								
+							</li>
+						
+					</ul>
+				</nav>
+			
+		</div>
+		<div class="w-full md:w-[50rem]">
+			<header class="mx-auto w-full bg-red-700 text-white h-16">
+				<ul class="flex items-center h-full">
+					<li class="pl-6">
+						<a href="/trunk/">Home</a>
+					</li>
+					<li class="pl-6">
+						<a href="/trunk/tutorial">Tutorial</a>
+					</li>
+				</ul>
+			</header>
+
+			<main class="prose prose-headings:text-red-700 pt-4 mx-auto">
+				<h1 id="framing">Framing</h1>
+<p>The framing model that AutoProof uses is based on <em>modifies clauses</em>. The
+<code class="language-plaintext highlighter-rouge">ACCOUNT</code> class deliberately used three different ways of specifying the modifies
+clause to demonstrate the differences between them.</p>
+
+<h2 id="modify_model-fields-objects"><code class="language-plaintext highlighter-rouge">modify_model (fields, objects)</code></h2>
+<p>Using <code class="language-plaintext highlighter-rouge">modify_model</code> you can specify that model fields may change during
+the execution of a routine. You can specify one or more model fields by
+providing as first parameter a manifest string with the name of the model
+attribute or a manifest tuple with multiple manifest strings. The second
+parameter is either a single object, a single set of objects of type <code class="language-plaintext highlighter-rouge">MML_SET</code>,
+or a manifest tuple with mixed objects or sets of objects.</p>
+
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">deposit</span> <span class="pi">(</span><span class="n">amount</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">)</span>
+	<span class="k">require</span>
+		<span class="pi">...</span>
+		<span class="n">modify_model</span> <span class="pi">(</span><span class="s2">"balance"</span><span class="pi">,</span> <span class="kv">Current</span><span class="pi">)</span>
+	<span class="k">do</span> <span class="pi">...</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<p>This routine is allowed to modify the model field <code class="language-plaintext highlighter-rouge">balance</code> of the
+<code class="language-plaintext highlighter-rouge">Current</code> object.</p>
+
+<p>The effect of <code class="language-plaintext highlighter-rouge">modify_model</code> is as follows: each model attribute specified
+in the <code class="language-plaintext highlighter-rouge">modify_model</code> clause <em>as well as each non-model attribute</em> can be
+modified in the routine. All model fields that are not listed remain unchanged.
+This means in turn that for clients all non-model attributes are potentially
+modified even though they are not listed in the modifies clause.</p>
+
+<h2 id="modify_field-fields-objects"><code class="language-plaintext highlighter-rouge">modify_field (fields, objects)</code></h2>
+<p>With <code class="language-plaintext highlighter-rouge">modify_field</code> you specify directly which attributes may be changed
+by a routine. As before, you can specify one or more attribute names by
+providing as first parameter a manifest string with the name of the model
+attribute or a manifest tuple with multiple manifest strings. The second
+parameter is again either a single object, a single set of objects of type <code class="language-plaintext highlighter-rouge">MML_SET</code>,
+or a manifest tuple with mixed objects or sets of objects.</p>
+
+<p>This way of specifying the modifies clause is lower-level than specifying
+which model fields may change. This is also the reason we are required to
+add the ghost field <code class="language-plaintext highlighter-rouge">closed</code> in the example shown here. The <code class="language-plaintext highlighter-rouge">closed</code> field is
+a boolean flag that is <code class="language-plaintext highlighter-rouge">True</code> whenever an object is in a consistent state (see
+Section 3 (TODO: add link) for details).</p>
+
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">withdraw</span> <span class="pi">(</span><span class="n">amount</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">)</span>
+	<span class="k">require</span>
+		<span class="pi">...</span>
+		<span class="n">modify_field</span> <span class="pi">([</span><span class="s2">"balance"</span><span class="pi">,</span> <span class="s2">"closed"</span><span class="pi">],</span> <span class="kv">Current</span><span class="pi">)</span>
+	<span class="k">do</span> <span class="pi">...</span> <span class="k">end</span>
+</code></pre></div></div>
+<p>This routine is allowed to modify the attributes <code class="language-plaintext highlighter-rouge">balance</code> and <code class="language-plaintext highlighter-rouge">closed</code> of
+the <code class="language-plaintext highlighter-rouge">Current</code> object.</p>
+
+<h2 id="modify-objects"><code class="language-plaintext highlighter-rouge">modify (objects)</code></h2>
+<p>The third option to specify modifies clauses is to give a list of objects which
+can be modified without limiting the modifications to certain attributes or
+model fields. For this modifies clause you can specify mixed objects or sets
+of objects.</p>
+
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">transfer</span> <span class="pi">(</span><span class="n">amount</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">;</span> <span class="n">other</span><span class="pi">:</span> <span class="nc">ACCOUNT</span><span class="pi">)</span>
+	<span class="k">require</span>
+		<span class="pi">...</span>
+		<span class="n">modify</span> <span class="pi">(</span><span class="kv">Current</span><span class="pi">,</span> <span class="n">other</span><span class="pi">)</span>
+	<span class="k">do</span> <span class="pi">...</span> <span class="k">end</span>
+</code></pre></div></div>
+
+<p>This routine is allowed to modify all attributes of <code class="language-plaintext highlighter-rouge">Current</code> and <code class="language-plaintext highlighter-rouge">other</code>.</p>
+
+<p>Since the objects may be modified freely, you have to specify the full effect
+on the modified objects. For example the <code class="language-plaintext highlighter-rouge">transfer</code> procedure of the
+account example, the postcondition not only describes the effect on the
+<code class="language-plaintext highlighter-rouge">balance</code> attribute of the two objects but also has clauses to specify that
+the <code class="language-plaintext highlighter-rouge">credit_limit</code> attribute does not change. This is for demonstration pur-
+poses only, it would be a better design to use <code class="language-plaintext highlighter-rouge">modify_model</code> instead (<em>try to
+change it!</em>).</p>
+
+<p>Giving an empty tuple as argument — <code class="language-plaintext highlighter-rouge">modify ([])</code> — denotes that nothing
+may be modified, i.e., that the routine is <em>pure</em>.</p>
+
+<h2 id="default-modifies-clauses">Default modifies clauses</h2>
+<p>When no modifies clause is given a default modifies clause is used based on
+the type of routine:</p>
+<ul>
+  <li>For <strong>procedures</strong> (routines without a return value), the default modifies
+clause is <code class="language-plaintext highlighter-rouge">modify (Current)</code>. So all attributes can be modified in a
+procedure if no specific modifies clause is given.</li>
+  <li>For <strong>functions</strong> (routines with a return value), the default modifies
+clause is <code class="language-plaintext highlighter-rouge">modify ([])</code>. Therefore, by default, all functions are <em>pure</em>.</li>
+</ul>
+
+<p>When you overwrite the default modifies clause for procedures, for example
+to modify an object passed as parameter, and you want to be able to
+modify the <code class="language-plaintext highlighter-rouge">Current</code> object as well, you will need to add <code class="language-plaintext highlighter-rouge">modify (Current)</code>
+to the modifies clause (or a more specific version when only a subset of the
+attributes needs to be modifiable).</p>
+
+<h2 id="combining-modifies-annotations">Combining modifies annotations</h2>
+<p>You can add several modifies annotations to a modifies clause. The set of
+modifiable objects and attributes is the union of all modifies annotations.</p>
+
+			</main>
+
+			
+				<div class="flex w-[40rem] mx-auto mt-10 mb-10">
+					
+						<a
+							href="/trunk/tutorial/models.html"
+										class="block flex-1 text-red-800 hover:text-red-600 mr-4"
+						>
+							← Previous page <br>
+							<span class="font-bold">Models</span>
+						</a>
+					
+
+					
+						<div class="w-[1px] self-center h-6 bg-red-800"></div>
+					
+
+					
+						<a
+							href="/trunk/tutorial/routine-annotations.html"
+										class="block flex-1 text-red-800 hover:text-red-600 text-right ml-4"
+						>
+							Next page → <br>
+							<span class="font-bold">Routine annotations</span>
+						</a>
+					
+				</div>
+			
+		</div>
+
+		<div class="flex-1"></div>
+  </body>
+</html>

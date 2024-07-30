@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<title>Models - AutoProof</title>
+		<link rel="stylesheet" href="/trunk/assets/css/main.css">
+		<link rel="stylesheet" href="/trunk/assets/css/highlight.css">
+	</head>
+	<body class="flex">
+		<div class="flex-1 flex flex-row-reverse">
+			
+				<nav class="w-[16rem]">
+					<div class="h-20 bg-gradient-to-tl from-red-50"></div>
+					<ul class="bg-gradient-to-bl from-red-50 pb-6">
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/index.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Tutorial
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/verification-of-basic-properties.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Verification of basic properties
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/input-language.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Input language
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/basic-properties.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Basic properties
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<span class="min-h-8 pl-4 flex items-center bg-red-100 align-middle">Models</span>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/framing.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Framing
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/routine-annotations.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Routine annotations
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/debugging-verification.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Debugging verification
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/hands-on-clock.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Hands-on: Clock
+									</a>
+								
+							</li>
+						
+					</ul>
+				</nav>
+			
+		</div>
+		<div class="w-full md:w-[50rem]">
+			<header class="mx-auto w-full bg-red-700 text-white h-16">
+				<ul class="flex items-center h-full">
+					<li class="pl-6">
+						<a href="/trunk/">Home</a>
+					</li>
+					<li class="pl-6">
+						<a href="/trunk/tutorial">Tutorial</a>
+					</li>
+				</ul>
+			</header>
+
+			<main class="prose prose-headings:text-red-700 pt-4 mx-auto">
+				<h1 id="models">Models</h1>
+<p>AutoProof supports <em>model-based</em> contracts. Models are used to express the
+<em>abstract state space</em> of a class and describe its changes. To define the model
+of a class you add a <code class="language-plaintext highlighter-rouge">model</code> annotation to the <code class="language-plaintext highlighter-rouge">note</code> clause of the class. The
+model may only consist of attributes of the class.</p>
+
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">note</span>
+  <span class="n">model</span><span class="pi">:</span> <span class="n">balance</span><span class="pi">,</span> <span class="n">credit_limit</span>
+<span class="k">class</span> <span class="nc">ACCOUNT</span>
+</code></pre></div></div>
+
+<p>This makes the two attributes <code class="language-plaintext highlighter-rouge">balance</code> and <code class="language-plaintext highlighter-rouge">credit_limit</code> model fields of the
+class.</p>
+
+<p>The idea behind model-based contracts is to have an abstract and concise
+yet expressive way to specify the interface of a class. When using models
+you use the class invariant to describe object validity in terms of the model
+attributes. The effect of each procedure is expressed by relating the pre-state
+of the model fields to their post-state. In addition you can express the
+framing specification in terms of the model fields.</p>
+
+<p>The Mathematical Model Library (MML, see Section 2.1 (TODO: add link)) can be used
+to model complex behavior. Also, ghost attributes might be introduced to
+define abstract behavior in terms of other functions or attributes and can
+then be used as model fields (see Section 2.6 (TODO: add link)).</p>
+
+			</main>
+
+			
+				<div class="flex w-[40rem] mx-auto mt-10 mb-10">
+					
+						<a
+							href="/trunk/tutorial/basic-properties.html"
+										class="block flex-1 text-red-800 hover:text-red-600 mr-4"
+						>
+							← Previous page <br>
+							<span class="font-bold">Basic properties</span>
+						</a>
+					
+
+					
+						<div class="w-[1px] self-center h-6 bg-red-800"></div>
+					
+
+					
+						<a
+							href="/trunk/tutorial/framing.html"
+										class="block flex-1 text-red-800 hover:text-red-600 text-right ml-4"
+						>
+							Next page → <br>
+							<span class="font-bold">Framing</span>
+						</a>
+					
+				</div>
+			
+		</div>
+
+		<div class="flex-1"></div>
+  </body>
+</html>

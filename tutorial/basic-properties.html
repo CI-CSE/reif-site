@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<title>Basic properties - AutoProof</title>
+		<link rel="stylesheet" href="/trunk/assets/css/main.css">
+		<link rel="stylesheet" href="/trunk/assets/css/highlight.css">
+	</head>
+	<body class="flex">
+		<div class="flex-1 flex flex-row-reverse">
+			
+				<nav class="w-[16rem]">
+					<div class="h-20 bg-gradient-to-tl from-red-50"></div>
+					<ul class="bg-gradient-to-bl from-red-50 pb-6">
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/index.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Tutorial
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/verification-of-basic-properties.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Verification of basic properties
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/input-language.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Input language
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<span class="min-h-8 pl-4 flex items-center bg-red-100 align-middle">Basic properties</span>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/models.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Models
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/framing.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Framing
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/routine-annotations.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Routine annotations
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/debugging-verification.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Debugging verification
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/trunk/tutorial/hands-on-clock.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Hands-on: Clock
+									</a>
+								
+							</li>
+						
+					</ul>
+				</nav>
+			
+		</div>
+		<div class="w-full md:w-[50rem]">
+			<header class="mx-auto w-full bg-red-700 text-white h-16">
+				<ul class="flex items-center h-full">
+					<li class="pl-6">
+						<a href="/trunk/">Home</a>
+					</li>
+					<li class="pl-6">
+						<a href="/trunk/tutorial">Tutorial</a>
+					</li>
+				</ul>
+			</header>
+
+			<main class="prose prose-headings:text-red-700 pt-4 mx-auto">
+				<h1 id="basic-properties">Basic properties</h1>
+<h2 id="booleans">Booleans</h2>
+<p>The Eiffel boolean operations <code class="language-plaintext highlighter-rouge">not</code>, <code class="language-plaintext highlighter-rouge">and</code>, <code class="language-plaintext highlighter-rouge">or</code>, <code class="language-plaintext highlighter-rouge">xor</code>, and <code class="language-plaintext highlighter-rouge">implies</code> are supported
+by AutoProof. The semi-strict operators <code class="language-plaintext highlighter-rouge">and then</code> and <code class="language-plaintext highlighter-rouge">or else</code> are also
+supported with the correct semantics that the right-hand side only needs to
+be valid if the left-hand side does not already define the overall value of the
+expression.</p>
+
+<h2 id="integers">Integers</h2>
+<p>The Eiffel integer operations <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">//</code> (quotient of integer division), and
+<code class="language-plaintext highlighter-rouge">\\</code> (remainder of integer division) are supported by AutoProof. Integers in
+AutoProof can be modeled in two modes, either as mathematical integers or
+as machine integers. By default integers will be modeled as mathematical
+integers, though AutoProof can also check overflows of bounded integers (see
+Section 2.8 (TODO: add link)).</p>
+
+<p>The Eiffel comparison operations on integers <code class="language-plaintext highlighter-rouge">=</code>, <code class="language-plaintext highlighter-rouge">/=</code>, <code class="language-plaintext highlighter-rouge">&lt;</code>, <code class="language-plaintext highlighter-rouge">&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;=</code>, and <code class="language-plaintext highlighter-rouge">&gt;=</code> are
+all supported.</p>
+
+<h2 id="references">References</h2>
+<p>Comparison of objects always uses reference equality. The standard equality
+operator <code class="language-plaintext highlighter-rouge">a = b</code> and inequality operator <code class="language-plaintext highlighter-rouge">a /= b</code> work as expected; object
+equality <code class="language-plaintext highlighter-rouge">a ~ b</code> and inequality <code class="language-plaintext highlighter-rouge">a /~ b</code> are not supported and will fall back to
+reference equality when used.</p>
+
+			</main>
+
+			
+				<div class="flex w-[40rem] mx-auto mt-10 mb-10">
+					
+						<a
+							href="/trunk/tutorial/input-language.html"
+										class="block flex-1 text-red-800 hover:text-red-600 mr-4"
+						>
+							← Previous page <br>
+							<span class="font-bold">Input language</span>
+						</a>
+					
+
+					
+						<div class="w-[1px] self-center h-6 bg-red-800"></div>
+					
+
+					
+						<a
+							href="/trunk/tutorial/models.html"
+										class="block flex-1 text-red-800 hover:text-red-600 text-right ml-4"
+						>
+							Next page → <br>
+							<span class="font-bold">Models</span>
+						</a>
+					
+				</div>
+			
+		</div>
+
+		<div class="flex-1"></div>
+  </body>
+</html>
