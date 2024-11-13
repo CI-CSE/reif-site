@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<title>Verification of basic properties - AutoProof</title>
+		<link rel="stylesheet" href="/reif-site/assets/css/main.css">
+		<link rel="stylesheet" href="/reif-site/assets/css/highlight.css">
+	</head>
+	<body class="flex">
+		<div class="flex-1 flex flex-row-reverse">
+			
+				<nav class="w-[16rem]">
+					<div class="h-20 bg-gradient-to-tl from-red-50"></div>
+					<ul class="bg-gradient-to-bl from-red-50 pb-6">
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/index.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Tutorial
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<span class="min-h-8 pl-4 flex items-center bg-red-100 align-middle">Verification of basic properties</span>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/input-language.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Input language
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/basic-properties.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Basic properties
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/models.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Models
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/framing.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Framing
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/routine-annotations.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Routine annotations
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/debugging-verification.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Debugging verification
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/hands-on-clock.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Hands-on: Clock
+									</a>
+								
+							</li>
+						
+					</ul>
+				</nav>
+			
+		</div>
+		<div class="w-full md:w-[50rem]">
+			<header class="mx-auto w-full bg-red-700 text-white h-16">
+				<ul class="flex items-center h-full">
+					<li class="pl-6">
+						<a href="/reif-site/">Home</a>
+					</li>
+					<li class="pl-6">
+						<a href="/reif-site/tutorial">Tutorial</a>
+					</li>
+				</ul>
+			</header>
+
+			<main class="prose prose-headings:text-red-700 pt-4 mx-auto">
+				<h1 id="verification-of-basic-properties">Verification of basic properties</h1>
+<p>To prove functional correctness automatically, a program needs a machine-
+readable specification. We are using Eiffel — an object-oriented programming
+language — which allows one to write contracts as part of the program. Each
+Eiffel routine is equipped with pre- and postconditions and each class has a
+class invariant.</p>
+
+<p>We will use the <em>Account</em> example to show the basic concepts of Auto-
+Proof. The example consists of the two classes <code class="language-plaintext highlighter-rouge">ACCOUNT</code> and <code class="language-plaintext highlighter-rouge">ACCOUNT_TEST</code>.
+The first class models a bank account and the second class consists of two
+test cases that show proper and improper usage of the class. The full code
+of class <code class="language-plaintext highlighter-rouge">ACCOUNT</code> is shown below.</p>
+
+<div class="language-eiffel highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">note</span>
+  <span class="n">description</span><span class="pi">:</span> <span class="s2">"Account class."</span>
+  <span class="n">model</span><span class="pi">:</span> <span class="n">balance</span><span class="pi">,</span> <span class="n">credit_limit</span>
+
+<span class="k">class</span> <span class="nc">ACCOUNT</span>
+<span class="k">create</span> <span class="n">make</span>
+
+<span class="k">feature</span> <span class="pi">{</span><span class="nc">NONE</span><span class="pi">}</span> <span class="c1">-- Initialization</span>
+
+  <span class="n">make</span>
+	  <span class="c1">-- Initialize empty account.</span>
+  <span class="k">note</span>
+	<span class="n">status</span><span class="pi">:</span> <span class="n">creator</span>
+  <span class="k">do</span>
+	<span class="n">balance</span> <span class="pi">:=</span> <span class="mi">0</span>
+	<span class="n">credit_limit</span> <span class="pi">:=</span> <span class="mi">0</span>
+  <span class="k">ensure</span>
+	<span class="n">balance_set</span><span class="pi">:</span> <span class="n">balance</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="n">credit_limit_set</span><span class="pi">:</span> <span class="n">credit_limit</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">end</span>
+
+<span class="k">feature</span> <span class="c1">-- Access</span>
+
+  <span class="n">balance</span><span class="pi">:</span> <span class="nc">INTEGER</span>
+	  <span class="c1">-- Balance of this account.</span>
+
+  <span class="n">credit_limit</span><span class="pi">:</span> <span class="nc">INTEGER</span>
+	  <span class="c1">-- Credit limit of this account.</span>
+
+  <span class="n">available_amount</span><span class="pi">:</span> <span class="nc">INTEGER</span>
+	  <span class="c1">-- Amount available on this account.</span>
+	<span class="k">note</span>
+	  <span class="n">status</span><span class="pi">:</span> <span class="n">functional</span>
+	<span class="k">do</span>
+	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">credit_limit</span>
+	<span class="k">end</span>
+
+<span class="k">feature</span> <span class="c1">-- Element change</span>
+
+  <span class="n">set_credit_limit</span> <span class="pi">(</span><span class="n">limit</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">)</span>
+	  <span class="c1">-- Set ‘credit_limit’ to ‘limit’.</span>
+	<span class="k">require</span>
+	  <span class="n">limit_valid</span><span class="pi">:</span> <span class="n">limit</span> <span class="o">≥</span> <span class="pi">(</span><span class="mi">0</span><span class="pi">).</span><span class="n">max</span><span class="pi">(</span><span class="o">−</span><span class="n">balance</span><span class="pi">)</span>
+	  <span class="n">modify_model</span> <span class="pi">(</span><span class="s2">"credit_limit"</span><span class="pi">,</span> <span class="kv">Current</span><span class="pi">)</span>
+	<span class="k">do</span>
+	  <span class="n">credit_limit</span> <span class="pi">:=</span> <span class="n">limit</span>
+	<span class="k">ensure</span>
+	  <span class="n">credit_limit_set</span><span class="pi">:</span> <span class="n">credit_limit</span> <span class="o">=</span> <span class="n">limit</span>
+	<span class="k">end</span>
+
+  <span class="n">deposit</span> <span class="pi">(</span><span class="n">amount</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">)</span>
+	  <span class="c1">-- Deposit ‘amount’ in this account.</span>
+	<span class="k">require</span>
+	  <span class="n">amount_non_negative</span><span class="pi">:</span> <span class="n">amount</span> <span class="o">≥</span> <span class="mi">0</span>
+	  <span class="n">modify_model</span> <span class="pi">(</span><span class="s2">"balance"</span><span class="pi">,</span> <span class="kv">Current</span><span class="pi">)</span>
+	<span class="k">do</span>
+	  <span class="n">balance</span> <span class="pi">:=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span>
+	<span class="k">ensure</span>
+	  <span class="n">balance_set</span><span class="pi">:</span> <span class="n">balance</span> <span class="o">=</span> <span class="k">old</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span>
+	<span class="k">end</span>
+
+  <span class="n">withdraw</span> <span class="pi">(</span><span class="n">amount</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">)</span>
+	  <span class="c1">-- Withdraw ‘amount’ from this account.</span>
+	<span class="k">require</span>
+	  <span class="n">amount_not_negative</span><span class="pi">:</span> <span class="n">amount</span> <span class="o">≥</span> <span class="mi">0</span>
+	  <span class="n">amount_available</span><span class="pi">:</span> <span class="n">amount</span> <span class="o">≤</span> <span class="n">available_amount</span>
+	  <span class="n">modify_field</span> <span class="pi">([</span><span class="s2">"balance"</span><span class="pi">,</span> <span class="s2">"closed"</span><span class="pi">],</span> <span class="kv">Current</span><span class="pi">)</span>
+	<span class="k">do</span>
+	  <span class="n">balance</span> <span class="pi">:=</span> <span class="n">balance</span> <span class="o">−</span> <span class="n">amount</span>
+	<span class="k">ensure</span>
+	  <span class="n">balance_set</span><span class="pi">:</span> <span class="n">balance</span> <span class="o">=</span> <span class="k">old</span> <span class="n">balance</span> <span class="o">−</span> <span class="n">amount</span>
+	<span class="k">end</span>
+
+<span class="k">feature</span> <span class="c1">-- Basic operations</span>
+
+  <span class="n">transfer</span> <span class="pi">(</span><span class="n">amount</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">;</span> <span class="n">other</span><span class="pi">:</span> <span class="nc">ACCOUNT</span><span class="pi">)</span>
+	  <span class="c1">-- Transfer ‘amount’ from this to ‘other’.</span>
+	<span class="k">require</span>
+	  <span class="n">amount_not_negative</span><span class="pi">:</span> <span class="n">amount</span> <span class="o">≥</span> <span class="mi">0</span>
+	  <span class="n">amount_available</span><span class="pi">:</span> <span class="n">amount</span> <span class="o">≤</span> <span class="n">available_amount</span>
+	  <span class="n">no_aliasing</span><span class="pi">:</span> <span class="n">other</span> <span class="mi">6</span> <span class="o">=</span> <span class="kv">Current</span>
+	  <span class="n">modify</span> <span class="pi">(</span><span class="kv">Current</span><span class="pi">,</span> <span class="n">other</span><span class="pi">)</span>
+	<span class="k">do</span>
+	  <span class="n">balance</span> <span class="pi">:=</span> <span class="n">balance</span> <span class="o">−</span> <span class="n">amount</span>
+	  <span class="n">other</span><span class="pi">.</span><span class="n">deposit</span> <span class="pi">(</span><span class="n">amount</span><span class="pi">)</span>
+	<span class="k">ensure</span>
+	  <span class="n">balance</span> <span class="o">=</span> <span class="k">old</span> <span class="n">balance</span> <span class="o">−</span> <span class="n">amount</span>
+	  <span class="n">other</span><span class="pi">.</span><span class="n">balance</span> <span class="o">=</span> <span class="k">old</span> <span class="n">other</span><span class="pi">.</span><span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span>
+	  <span class="n">credit_limit</span> <span class="o">=</span> <span class="k">old</span> <span class="n">credit_limit</span>
+	  <span class="n">other</span><span class="pi">.</span><span class="n">credit_limit</span> <span class="o">=</span> <span class="k">old</span> <span class="n">other</span><span class="pi">.</span><span class="n">credit_limit</span>
+	<span class="k">end</span>
+
+<span class="k">invariant</span>
+  <span class="n">limit_not_negative</span><span class="pi">:</span> <span class="n">credit_limit</span> <span class="o">≥</span> <span class="mi">0</span>
+  <span class="n">balance_not_credit</span><span class="pi">:</span> <span class="n">balance</span> <span class="o">≥</span> <span class="o">−</span><span class="n">credit_limit</span>
+
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>First you can look through the example and verify the two classes; all
+routines, except for the deliberately failing test case, will be successfully
+verified.</p>
+
+			</main>
+
+			
+				<div class="flex w-[40rem] mx-auto mt-10 mb-10">
+					
+						<a
+							href="/reif-site/tutorial/index.html"
+										class="block flex-1 text-red-800 hover:text-red-600 mr-4"
+						>
+							← Previous page <br>
+							<span class="font-bold">Tutorial</span>
+						</a>
+					
+
+					
+						<div class="w-[1px] self-center h-6 bg-red-800"></div>
+					
+
+					
+						<a
+							href="/reif-site/tutorial/input-language.html"
+										class="block flex-1 text-red-800 hover:text-red-600 text-right ml-4"
+						>
+							Next page → <br>
+							<span class="font-bold">Input language</span>
+						</a>
+					
+				</div>
+			
+		</div>
+
+		<div class="flex-1"></div>
+  </body>
+</html>

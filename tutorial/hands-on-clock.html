@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<title>Hands-on: Clock - AutoProof</title>
+		<link rel="stylesheet" href="/reif-site/assets/css/main.css">
+		<link rel="stylesheet" href="/reif-site/assets/css/highlight.css">
+	</head>
+	<body class="flex">
+		<div class="flex-1 flex flex-row-reverse">
+			
+				<nav class="w-[16rem]">
+					<div class="h-20 bg-gradient-to-tl from-red-50"></div>
+					<ul class="bg-gradient-to-bl from-red-50 pb-6">
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/index.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Tutorial
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/verification-of-basic-properties.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Verification of basic properties
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/input-language.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Input language
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/basic-properties.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Basic properties
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/models.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Models
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/framing.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Framing
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/routine-annotations.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Routine annotations
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<a
+										href="/reif-site/tutorial/debugging-verification.html"
+													class="min-h-8 pl-4 block flex items-center hover:bg-red-100"
+									>
+										Debugging verification
+									</a>
+								
+							</li>
+						
+							<li>
+								
+									<span class="min-h-8 pl-4 flex items-center bg-red-100 align-middle">Hands-on: Clock</span>
+								
+							</li>
+						
+					</ul>
+				</nav>
+			
+		</div>
+		<div class="w-full md:w-[50rem]">
+			<header class="mx-auto w-full bg-red-700 text-white h-16">
+				<ul class="flex items-center h-full">
+					<li class="pl-6">
+						<a href="/reif-site/">Home</a>
+					</li>
+					<li class="pl-6">
+						<a href="/reif-site/tutorial">Tutorial</a>
+					</li>
+				</ul>
+			</header>
+
+			<main class="prose prose-headings:text-red-700 pt-4 mx-auto">
+				<h1 id="hands-on-clock">Hands-on: Clock</h1>
+<p>The <code class="language-plaintext highlighter-rouge">CLOCK</code> class is modeling a clock counting seconds, minutes and hours
+of a day. The class contains routines to create the clock, set the time, and
+increase the time.</p>
+
+<ol>
+  <li>Add a <em>model</em> declaration to define the abstract model.</li>
+  <li>Add a class <code class="language-plaintext highlighter-rouge">invariant</code> to restrict the attribute values.</li>
+  <li>Add a precondition to the creation procedure <code class="language-plaintext highlighter-rouge">make</code>.
+  You should be able to verify <code class="language-plaintext highlighter-rouge">make</code> and <code class="language-plaintext highlighter-rouge">test_make</code>.</li>
+  <li>Add the specification to the <code class="language-plaintext highlighter-rouge">set_*</code> procedures.
+  You should be able to verify the <code class="language-plaintext highlighter-rouge">set_*</code> and <code class="language-plaintext highlighter-rouge">test_set</code> procedures.</li>
+  <li>Add the specification to the <code class="language-plaintext highlighter-rouge">increase_*</code> procedures.
+  You should be able to verify both classes completely.</li>
+</ol>
+
+			</main>
+
+			
+				<div class="flex w-[40rem] mx-auto mt-10 mb-10">
+					
+						<a
+							href="/reif-site/tutorial/debugging-verification.html"
+										class="block flex-1 text-red-800 hover:text-red-600 mr-4"
+						>
+							← Previous page <br>
+							<span class="font-bold">Debugging verification</span>
+						</a>
+					
+
+					
+
+					
+						<div></div>
+					
+				</div>
+			
+		</div>
+
+		<div class="flex-1"></div>
+  </body>
+</html>
