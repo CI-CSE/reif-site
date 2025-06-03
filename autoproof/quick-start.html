@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>AutoProof quick start guide | Reif</title>
+    <meta name="generator" content="Jekyll v4.4.1" />
+    <meta property="og:title" content="AutoProof quick start guide" />
+    <meta property="og:locale" content="en_US" />
+    <link rel="canonical" href="/reif-site/autoproof/quick-start.html" />
+    <meta property="og:url" content="/reif-site/autoproof/quick-start.html" />
+    <meta property="og:site_name" content="Reif" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="AutoProof quick start guide" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "headline": "AutoProof quick start guide",
+        "url": "/reif-site/autoproof/quick-start.html"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/reif-site/assets/css/main.css" />
+  </head>
+  <body class="flex">
+    <div class="flex-1 flex flex-row-reverse"></div>
+    <div class="w-full md:w-[50rem]">
+      <header class="mx-auto w-full text-white bg-navy-blue p-2">
+        <a href="https://institute.constructor.org/">
+          <img
+            src="/reif-site/assets/images/C_IT_Logo_White_On_Transparent-cropped-min.svg"
+            alt="Constructor Institute of Technology"
+            class="h-3.5 block"
+          />
+        </a>
+
+        <div class="mt-2">
+          <a href="https://se.constructor.ch" class="text-lg">
+            ← Chair of Software Engineering
+          </a>
+        </div>
+
+        <a href="/reif-site/" class="text-2xl my-2 inline-block">
+          Reif — Research Eiffel
+        </a>
+        <ul class="flex items-center gap-6">
+          <li>
+            <a href="/reif-site/">Home</a>
+          </li>
+
+          <li>
+            <a href="/reif-site/autoproof">AutoProof</a>
+          </li>
+        </ul>
+      </header>
+
+      <div class="p-2">
+        <main class="prose mx-auto">
+          <h1 id="autoproof-quick-start-guide">AutoProof quick start guide</h1>
+
+          <p>This page gives a short introduction to using AutoProof.</p>
+
+          <p>
+            Many things here are simplified in this guide. For a more systematic
+            description please go to the
+            <a href="/reif-site/tutorial/index.html">AutoProof tutorial</a>.
+          </p>
+
+          <h2 id="what-is-autoproof">What is AutoProof</h2>
+          <p>
+            AutoProof is a static program verifier for Eiffel. It means that
+            AutoProof can take Eiffel programs with contracts and verify that
+            contracts hold in all executions without running the code.
+          </p>
+
+          <p>
+            AutoProof generates a model of the program and tries to
+            mathematically prove that contracts hold.
+          </p>
+
+          <h3 id="what-autoproof-can-do">What AutoProof can do?</h3>
+          <p>
+            For example, AutoProof can “see” that the postcondition of the
+            following function holds.
+          </p>
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">double</span> <span class="pi">(</span><span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">):</span> <span class="nc">INTEGER</span>
+  <span class="k">do</span>
+    <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
+  <span class="k">ensure</span>
+    <span class="n">is_double</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+          <p>
+            AutoProof’s output for this feature is
+            <code class="language-plaintext highlighter-rouge"
+              >Successfully verified</code
+            >
+            as expected.
+          </p>
+
+          <p>
+            AutoProof can also “find the bug” in the following implementation:
+          </p>
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">double</span> <span class="pi">(</span><span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">):</span> <span class="nc">INTEGER</span>
+  <span class="k">do</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">7</span> <span class="k">then</span>
+	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="mi">0</span>
+	<span class="k">else</span>
+	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
+	<span class="k">end</span>
+  <span class="k">ensure</span>
+    <span class="n">is_double</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+          <p>
+            AutoProof’s output for this feature is
+            <code class="language-plaintext highlighter-rouge"
+              >Postcondition is_double may be violated</code
+            >
+            also as expected. Indeed, when the argument
+            <code class="language-plaintext highlighter-rouge">a</code> is equal
+            to <code class="language-plaintext highlighter-rouge">7</code>, the
+            postcondition does not hold.
+          </p>
+
+          <p>
+            Suppose there is a precondition saying that
+            <code class="language-plaintext highlighter-rouge">a</code> cannot
+            be <code class="language-plaintext highlighter-rouge">7</code>. Then
+            there is no bug and the postcondition “always” holds. More
+            correctly, the postcondition holds if the precondition held at the
+            beginning of the routine.
+          </p>
+
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">double</span> <span class="pi">(</span><span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">):</span> <span class="nc">INTEGER</span>
+  <span class="k">require</span>
+    <span class="n">a_is_big</span><span class="pi">:</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">100</span>
+  <span class="k">do</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">7</span> <span class="k">then</span>
+	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="mi">0</span>
+	<span class="k">else</span>
+	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
+	<span class="k">end</span>
+  <span class="k">ensure</span>
+    <span class="n">is_double</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+          <p>
+            AutoProof’s output is again
+            <code class="language-plaintext highlighter-rouge"
+              >Successfully verified</code
+            >. Indeed, if
+            <code class="language-plaintext highlighter-rouge">a</code> is
+            greater than
+            <code class="language-plaintext highlighter-rouge">100</code>, then
+            it cannot be
+            <code class="language-plaintext highlighter-rouge">7</code>, so the
+            execution cannot enter the
+            <code class="language-plaintext highlighter-rouge">then</code>
+            branch.
+          </p>
+
+          <h3 id="what-autoproof-cannot-do">What AutoProof cannot do?</h3>
+          <p>
+            AutoProof cannot invent contracts. If there are no contracts,
+            AutoProof has nothing to verify.
+          </p>
+
+          <p>
+            If the program has not enough contracts (underspecification), then
+            AutoProof can say that some check might be violated, while in
+            reality this case cannot happen. Additional preconditions can limit
+            the possible initial state set, which would exclude the impossible
+            states.
+          </p>
+
+          <p>
+            Some program mechanisms such as loops, recursion, invariants relying
+            on other objects can be handled by AutoProof but they require extra
+            contracts. Loops are discussed later in this guide. The other
+            mechanisms are out of scope of this guide.
+          </p>
+
+          <p>TODO: explain more.</p>
+
+          <h2 id="using-autoproof-online">Using AutoProof online</h2>
+          <p>
+            An online version of AutoProof is available at
+            <a href="http://autoproof.sit.org/comcom/#AutoProof"
+              >http://autoproof.sit.org/comcom/#AutoProof</a
+            >.
+          </p>
+
+          <p>
+            There are several example programs available on that page. You can
+            replace the text of any example with your code.
+          </p>
+
+          <p>
+            Click the <strong>Verify</strong> button to start AutoProof on your
+            code. After AutoProof verification completes, verification results
+            of every feature in the class will be visible in the box under the
+            Verify button.
+          </p>
+
+          <p>
+            Notice that the <em>ACCOUNT</em> example does not verify. Indeed,
+            there are bugs in the program. Can you fix the bugs and make all
+            features verify?
+          </p>
+
+          <h2 id="writing-eiffel-for-autoproof">
+            Writing Eiffel for AutoProof
+          </h2>
+          <p>
+            Writing code in Eiffel to be verified by AutoProof is not that
+            different from writing normal Eiffel with contracts.
+          </p>
+
+          <h3 id="assertions-check">
+            Assertions
+            <code class="language-plaintext highlighter-rouge">check</code>
+          </h3>
+          <p>
+            The
+            <code class="language-plaintext highlighter-rouge">check</code>
+            instruction can be used to add an assertion which must be verified
+            by AutoProof at the respective point in the program. Consider the
+            following example:
+          </p>
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre class="highlight"><code><span class="n">check_demo</span>
+  <span class="k">local</span>
+    <span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span>
+  <span class="k">do</span>
+    <span class="n">a</span> <span class="pi">:=</span> <span class="mi">5</span>
+	<span class="k">check</span> <span class="n">a_is_five</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">end</span>
+	<span class="k">check</span> <span class="n">a_is_not_seven</span><span class="pi">:</span> <span class="n">a</span> <span class="o">/=</span> <span class="mi">7</span> <span class="k">end</span>
+	<span class="n">a</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
+	<span class="k">check</span> <span class="n">a_is_ten</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">end</span>
+	<span class="k">check</span> <span class="n">a_is_five_again</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">end</span> <span class="c1">-- This fails</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+          <p>
+            Verification output is
+            <code class="language-plaintext highlighter-rouge"
+              >Check a_is_five_again be violated</code
+            >. Removing the
+            <code class="language-plaintext highlighter-rouge">last_check</code>
+            assertion gives the
+            <code class="language-plaintext highlighter-rouge"
+              >Successfully verified</code
+            >
+            result.
+          </p>
+
+          <p>
+            Notice that assertion
+            <code class="language-plaintext highlighter-rouge">a = 5</code> was
+            checked in two different points of program: the second and the last
+            line of the routine. The first assertion verified (indeed,
+            <code class="language-plaintext highlighter-rouge">a</code> is
+            <code class="language-plaintext highlighter-rouge">5</code> because
+            it was assigned this value just one line above), the second
+            assertion did not verify because at that point in the program
+            <code class="language-plaintext highlighter-rouge">a</code> is in
+            fact <code class="language-plaintext highlighter-rouge">10</code>.
+          </p>
+
+          <h3 id="precondition-require">
+            Precondition
+            <code class="language-plaintext highlighter-rouge">require</code>
+          </h3>
+          <p>
+            The precondition of a routine is written after the
+            <code class="language-plaintext highlighter-rouge">require</code>
+            keyword. It can be assumed that the precondition holds before the
+            first instruction in the body.
+          </p>
+
+          <p>
+            The order of precondition clauses is important. The first clause is
+            checked first, then it can be assumed for checking the second clause
+            and so on.
+          </p>
+
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">precondition_demo</span> <span class="pi">(</span><span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">)</span>
+  <span class="k">require</span>
+    <span class="n">a_is_five_or_ten</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">or</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
+  <span class="k">do</span>
+    <span class="k">check</span> <span class="n">a_is_small</span><span class="pi">:</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="k">end</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            This feature is successfully verified. Indeed, because of the
+            precondition
+            <code class="language-plaintext highlighter-rouge"
+              >a_is_five_or_ten</code
+            >
+            we can assume that
+            <code class="language-plaintext highlighter-rouge">a</code> is
+            <code class="language-plaintext highlighter-rouge">5</code> or
+            <code class="language-plaintext highlighter-rouge">10</code> and
+            both cases are less than
+            <code class="language-plaintext highlighter-rouge">100</code>, so
+            the assertion
+            <code class="language-plaintext highlighter-rouge">a_is_small</code>
+            verifies.
+          </p>
+
+          <h3 id="conditional-instruction-if-then-else">
+            Conditional instruction
+            <code class="language-plaintext highlighter-rouge"
+              >if then else</code
+            >
+          </h3>
+          <p>
+            Conditional instruction has a
+            <code class="language-plaintext highlighter-rouge">then</code>
+            branch and an optional
+            <code class="language-plaintext highlighter-rouge">else</code>
+            branch. It can be assumed that the condition holds at the beginning
+            of the
+            <code class="language-plaintext highlighter-rouge">then</code>
+            branch and the condition does not hold at the beginning of the
+            <code class="language-plaintext highlighter-rouge">else</code>
+            branch.
+          </p>
+
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">conditional_demo</span> <span class="pi">(</span><span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">)</span>
+  <span class="k">require</span>
+    <span class="n">a_is_five_or_ten_or_fifteen</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">or</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">or</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">15</span>
+  <span class="k">do</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">then</span>
+	  <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">end</span>
+	<span class="k">else</span>
+	  <span class="k">check</span> <span class="n">a</span> <span class="o">/=</span> <span class="mi">5</span> <span class="k">end</span>
+	  <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">or</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">15</span> <span class="k">end</span>
+	  <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">then</span>
+	    <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">end</span>
+	  <span class="k">else</span>
+	    <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">15</span> <span class="k">end</span>
+	    <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">end</span> <span class="c1">-- This fails</span>
+	  <span class="k">end</span>
+	<span class="k">end</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            Only the last
+            <code class="language-plaintext highlighter-rouge"
+              >check a = 10 end</code
+            >
+            does not verify in this feature. Indeed,
+            <code class="language-plaintext highlighter-rouge">a</code> could be
+            one of <code class="language-plaintext highlighter-rouge">5</code>,
+            <code class="language-plaintext highlighter-rouge">10</code>,
+            <code class="language-plaintext highlighter-rouge">15</code> at the
+            beginning of the body. To reach the failing check
+            <code class="language-plaintext highlighter-rouge">a</code> must be
+            not <code class="language-plaintext highlighter-rouge">5</code> (to
+            reach the
+            <code class="language-plaintext highlighter-rouge">else</code>
+            branch) and
+            <code class="language-plaintext highlighter-rouge">a</code> must be
+            not <code class="language-plaintext highlighter-rouge">10</code> (to
+            reach the next
+            <code class="language-plaintext highlighter-rouge">else</code>
+            branch).
+          </p>
+
+          <p>
+            If a branch is unreachable, its body “is not verified”. You will not
+            get verification errors from the unreachable branches. Consider the
+            following example:
+          </p>
+
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">unreachable_demo</span>
+  <span class="k">do</span>
+    <span class="k">if</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">then</span>
+	  <span class="k">check</span> <span class="mi">2</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">end</span>
+	<span class="k">end</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+          <p>
+            This feature successfully verifies. There is no such state in which
+            <code class="language-plaintext highlighter-rouge">1 = 2</code>
+            holds, so there is no possible execution that goes into the
+            <code class="language-plaintext highlighter-rouge">then</code>
+            branch, so there is no state in which the verifier needs to prove
+            that
+            <code class="language-plaintext highlighter-rouge"
+              >check 2 = 1 end</code
+            >
+            holds. So, in all possible executions there are no failing checks.
+          </p>
+
+          <p>
+            The
+            <code class="language-plaintext highlighter-rouge"
+              >check False end</code
+            >
+            trick can be often used to check if a branch is reachable.
+          </p>
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">check_false_demo</span>
+  <span class="k">do</span>
+    <span class="k">if</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">then</span>
+	  <span class="k">check</span> <span class="n">first</span><span class="pi">:</span> <span class="kc">False</span> <span class="k">end</span>
+	<span class="k">end</span>
+	<span class="k">if</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">or</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">then</span>
+	  <span class="k">check</span> <span class="n">second</span><span class="pi">:</span> <span class="kc">False</span> <span class="k">end</span>
+	<span class="k">end</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+          <p>
+            Only the
+            <code class="language-plaintext highlighter-rouge">second</code>
+            check fails. The
+            <code class="language-plaintext highlighter-rouge">first</code>
+            check does not give an error. It hints that the
+            <code class="language-plaintext highlighter-rouge">first</code>
+            check is not reachable and the
+            <code class="language-plaintext highlighter-rouge">second</code>
+            check is reachable. Indeed,
+            <code class="language-plaintext highlighter-rouge">1 = 2</code> does
+            not hold and
+            <code class="language-plaintext highlighter-rouge"
+              >1 = 2 or 1 = 1</code
+            >
+            holds.
+          </p>
+
+          <p>
+            The
+            <code class="language-plaintext highlighter-rouge"
+              >check False end</code
+            >
+            assertion should always fail. If it does not result in a
+            verification error, then the verifier “thinks” that this line is not
+            reachable. You can use this trick for debugging. After you have seen
+            that the branch is reachable, remove the
+            <code class="language-plaintext highlighter-rouge"
+              >check False end</code
+            >
+            assertion.
+          </p>
+
+          <h3 id="postcondition-ensure">
+            Postcondition
+            <code class="language-plaintext highlighter-rouge">ensure</code>
+          </h3>
+          <p>
+            The postcondition of a routine is written after the
+            <code class="language-plaintext highlighter-rouge">ensure</code>
+            keyword. The routine’s body must end in a state where the
+            postcondition holds, if the precondition held at the beginning of
+            the routine. In a function, postcondition can use the
+            <code class="language-plaintext highlighter-rouge">Result</code>
+            variable which is the returned value.
+          </p>
+
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">postcondition_demo</span> <span class="pi">(</span><span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">):</span> <span class="nc">INTEGER</span>
+  <span class="k">require</span>
+    <span class="n">a_is_even</span><span class="pi">:</span> <span class="n">a</span> <span class="o">\\</span> <span class="mi">2</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">do</span>
+    <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="k">ensure</span>
+    <span class="n">result_bigger</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">&gt;</span> <span class="n">a</span>
+	<span class="n">result_is_odd</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">\\</span> <span class="mi">2</span> <span class="o">/=</span> <span class="mi">0</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            This feature verifies. If we remove the precondition, then the
+            feature does not verify.
+          </p>
+
+          <p>
+            The order of postcondition clauses is important. The first clause is
+            checked after the last line of the body, then it can be assumed for
+            checking the second clause and so on.
+          </p>
+
+          <h3 id="feature-calls-f-x-and-gf-x-are-opaque">
+            Feature calls
+            <code class="language-plaintext highlighter-rouge">f (x)</code> and
+            <code class="language-plaintext highlighter-rouge">g.f (x)</code>
+            are opaque
+          </h3>
+          <p>
+            The precondition of the called procedure must hold before the call.
+            After the call, only the postcondition of the procedure can be
+            assumed.
+          </p>
+
+          <p>
+            Feature calls are opaque (opposite of transparent). This means that
+            details of the feature body are not visible from outside.
+          </p>
+
+          <p>Consider the following function:</p>
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">more</span> <span class="pi">(</span><span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">):</span> <span class="nc">INTEGER</span>
+  <span class="k">require</span>
+    <span class="n">a_not_too_big</span><span class="pi">:</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">100</span>
+  <span class="k">do</span>
+    <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="k">ensure</span>
+    <span class="n">result_is_greater</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">&gt;</span> <span class="n">a</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            Even though according to the body this feature returns a number
+            which is greater exactly by
+            <code class="language-plaintext highlighter-rouge">1</code>, callers
+            of this feature do not know this. Callers only see that the result
+            is greater than the passed value.
+          </p>
+
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">call_demo</span> <span class="pi">(</span><span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">):</span> <span class="nc">INTEGER</span>
+  <span class="k">do</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">999</span> <span class="k">then</span>
+	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">more</span> <span class="pi">(</span><span class="n">a</span><span class="pi">)</span> <span class="c1">-- This fails</span>
+	<span class="k">end</span>
+	<span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">then</span>
+	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">more</span> <span class="pi">(</span><span class="n">a</span><span class="pi">)</span>
+	  <span class="k">check</span> <span class="kv">Result</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="k">end</span>
+	  <span class="k">check</span> <span class="kv">Result</span> <span class="o">=</span> <span class="mi">11</span> <span class="k">end</span> <span class="c1">-- This fails too</span>
+	<span class="k">end</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            Verification of this feature results in two errors. The first error
+            is
+            <code class="language-plaintext highlighter-rouge"
+              >Precondition a_not_too_big may be violated on call to
+              {ACCOUNT}.more</code
+            >
+            in the first branch in which
+            <code class="language-plaintext highlighter-rouge">a</code> is
+            <code class="language-plaintext highlighter-rouge">999</code>.
+            Indeed, calling
+            <code class="language-plaintext highlighter-rouge">more (999)</code>
+            violates the precondition
+            <code class="language-plaintext highlighter-rouge"
+              >a_not_too_big</code
+            >
+            which says that the argument must be less than
+            <code class="language-plaintext highlighter-rouge">100</code>.
+          </p>
+
+          <p>
+            The second error is
+            <code class="language-plaintext highlighter-rouge"
+              >Check Result = 11 may be violated</code
+            >
+            in the second branch in which
+            <code class="language-plaintext highlighter-rouge">a</code> is
+            <code class="language-plaintext highlighter-rouge">10</code>. Notice
+            that the previous check
+            <code class="language-plaintext highlighter-rouge"
+              >Result &gt; 10</code
+            >
+            verifies. Indeed, caller (<code
+              class="language-plaintext highlighter-rouge"
+              >call_demo</code
+            >) sees only the postcondition of
+            <code class="language-plaintext highlighter-rouge">more</code>
+            which says that the result is simply greater than the passed value,
+            so
+            <code class="language-plaintext highlighter-rouge"
+              >Result &gt; 10</code
+            >
+            verifies. However, caller does not know the details of the body, so
+            AutoProof cannot prove the check
+            <code class="language-plaintext highlighter-rouge">Result = 11</code
+            >.
+          </p>
+
+          <h3 id="do-not-have-inconsistent-preconditions-require-false">
+            Do not have inconsistent preconditions
+            <code class="language-plaintext highlighter-rouge"
+              >require False</code
+            >!
+          </h3>
+          <p>
+            Be careful not to have an inconstistent precondition. If the
+            routine’s precondition is not satisfiable, this routine will be
+            <strong>Successfully verified</strong> irrespective of its body or
+            postcondition. Most probably you do not want this!
+          </p>
+
+          <p>
+            AutoProof verifies that for all initial states satisfying the
+            precondition, postconditions and intermediate checks are satisfied.
+            If there are no such initial states, the feature is successfully
+            verified.
+          </p>
+
+          <p>
+            The most simple inconsistent precondition is just
+            <code class="language-plaintext highlighter-rouge">False</code>:
+          </p>
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">simply_false</span><span class="pi">:</span> <span class="kc">False</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            Contradicting precondition clauses also result in an inconsistent
+            precondition:
+          </p>
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">a_positive</span><span class="pi">:</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="n">a_negative</span><span class="pi">:</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            These are just several examples of inconsistent preconditions. Many
+            more are possible depending on the surrounding program.
+          </p>
+
+          <p>There are several ways to catch inconsistent preconditions.</p>
+
+          <p>
+            Calling a feature with an inconsistent precondition will not verify.
+            Indeed, there will be no state that satisfies the inconsistent
+            precondition. So, you can write a test feature that calls your
+            feature. If your test feature verifies, it will be a proof of having
+            at least several states that satisfy the precondition.
+          </p>
+
+          <p>
+            Adding a
+            <code class="language-plaintext highlighter-rouge"
+              >check False end</code
+            >
+            at the beginning of the feature body. Verifying
+            <code class="language-plaintext highlighter-rouge"
+              >check False end</code
+            >
+            should fail. If it does not fail, it means that execution cannot
+            reach this line. If the execution cannot reach the first line, it
+            might mean that the precondition is inconsistent. After you have
+            checked the precondition and
+            <code class="language-plaintext highlighter-rouge"
+              >check False end</code
+            >
+            gives an error, you can remove it to verify the rest of the routine.
+          </p>
+
+          <p>
+            These checks are not completely safe. However, they are quick ways
+            to find some inconsistencies using the verifier.
+          </p>
+
+          <h3 id="loops-from-invariant-until-loop-variant">
+            Loops
+            <code class="language-plaintext highlighter-rouge"
+              >from invariant until loop variant</code
+            >
+          </h3>
+          <p>
+            Verifying loops has some important differences when compared with
+            how they are executed.
+          </p>
+
+          <p>
+            Loops in Eiffel have the
+            <code class="language-plaintext highlighter-rouge">from</code>
+            initialization part which can contain initialization instructions,
+            the
+            <code class="language-plaintext highlighter-rouge">invariant</code>
+            part which can contain loop invariant assertions, the
+            <code class="language-plaintext highlighter-rouge">until</code> part
+            which must contain one boolean expression which is the exit
+            condition, the
+            <code class="language-plaintext highlighter-rouge">variant</code>
+            part which must contain one integer expression which is the loop
+            variant.
+          </p>
+
+          <p>
+            As a reminder, <em>loop variant</em> is an integer expression that
+            must decrease every iteration but cannot become less than zero. The
+            presence of such an invariant proves that the loop terminates,
+            because an integer value cannot decrease infinitely and must
+            eventually stop at zero or earlier.
+          </p>
+
+          <p>
+            When loops are executed, each next iteration starts from the state
+            that achieved at the end of the previous iteration. The first
+            iteration executes from the state that happened before the loop.
+          </p>
+
+          <p>
+            Verification uses a simplified model of loop execution to simplify
+            the verifier’s job. This is a technical limitation. Consider the
+            following loop:
+          </p>
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre class="highlight"><code><span class="k">from</span>
+<span class="k">invariant</span>
+  <span class="n">loop_invariant</span>
+<span class="k">until</span>
+  <span class="n">exit_condition</span>
+<span class="k">loop</span>
+  <span class="n">loop_body</span>
+<span class="k">variant</span>
+  <span class="n">loop_variant</span>
+<span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            Each iteration is verified starting in the same abstract state which
+            is represented by the loop invariant. This way, loop iteration can
+            assume the loop invariant and must ensure loop invariant at the end.
+            Additionally, iteration can assume that the exit condition does not
+            hold. In other words, we can say that the loop body is verified
+            similarly to the following procedure:
+          </p>
+
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">one_loop_iteration</span>
+  <span class="k">require</span>
+    <span class="n">invariant_assumed</span><span class="pi">:</span> <span class="n">loop_invariant</span>
+	<span class="n">loop_not_terminated</span><span class="pi">:</span> <span class="k">not</span> <span class="n">exit_condition</span>
+  <span class="k">do</span>
+    <span class="n">loop_body</span>
+  <span class="k">ensure</span>
+    <span class="n">invariant_preserved</span><span class="pi">:</span> <span class="n">loop_invariant</span>
+	<span class="n">variant_decreased</span><span class="pi">:</span> <span class="n">loop_variant</span> <span class="o">&lt;</span> <span class="k">old</span> <span class="n">loop_variant</span>
+	<span class="n">variant_non_neg</span><span class="pi">:</span> <span class="n">loop_variant</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            This imaginary feature highlights the important aspects of loop
+            verification. The loop body can rely on the invariant and can assume
+            that exit condition does not hold. Loop body must ensure loop
+            invariant (even in the last iteration!). The loop body can do
+            anything with the exit condition: keep it
+            <code class="language-plaintext highlighter-rouge">False</code> or
+            make it
+            <code class="language-plaintext highlighter-rouge">True</code>. The
+            loop body must decrease the variant but must not make it negative.
+          </p>
+
+          <p>Loops are opaque similarly to the feature calls.</p>
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">whole_loop_application</span>
+  <span class="k">require</span>
+    <span class="n">loop_invariant</span>
+  <span class="k">ensure</span>
+    <span class="n">loop_invariant</span>
+	<span class="n">exit_condition</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            This imaginary feature shows the pre- and post-condition of a loop
+            as a whole. Loop application requires the invariant and ensures the
+            invariant and the exit condition. Loop invariant must hold even if
+            the exit condition holds before the first iteration.
+          </p>
+
+          <h2 id="faq-and-common-problems">FAQ and common problems</h2>
+          <h3 id="invariant-might-not-hold-on-call-to-anywrap">
+            Invariant might not hold on call to
+            <code class="language-plaintext highlighter-rouge">{ANY}.wrap</code>
+          </h3>
+          <p>
+            The error
+            <code class="language-plaintext highlighter-rouge"
+              >Invariant might not hold on call to {ANY}.wrap</code
+            >
+            means that AutoProof thinks that the invariant of the current object
+            must hold at this line of the program.
+          </p>
+
+          <p>
+            If the error’s line number points to the
+            <code class="language-plaintext highlighter-rouge">end</code>
+            keyword of the feature, it means that the invariant must hold at the
+            end of the body of the feature.
+          </p>
+
+          <h2 id="further-reading">Further reading</h2>
+          <p>
+            To continue learning about AutoProof, please go to the
+            <a href="/reif-site/tutorial/index.html">AutoProof tutorial</a>. The
+            tutorial provides much more detail on the topics already covered
+            here and talks about advanced features of AutoProof.
+          </p>
+        </main>
+      </div>
+    </div>
+
+    <div class="flex-1"></div>
+  </body>
+</html>
