@@ -39,16 +39,17 @@
           />
         </a>
 
+        <a href="/reif-site/" class="text-2xl mt-2 inline-block">
+          Reif — Research Eiffel
+        </a>
+
         <div class="mt-2">
           <a href="https://se.constructor.ch" class="text-lg">
             ← Chair of Software Engineering
           </a>
         </div>
 
-        <a href="/reif-site/" class="text-2xl my-2 inline-block">
-          Reif — Research Eiffel
-        </a>
-        <ul class="flex items-center gap-6">
+        <ul class="mt-2 flex items-center gap-6">
           <li>
             <a href="/reif-site/">Home</a>
           </li>
@@ -59,7 +60,7 @@
         </ul>
       </header>
 
-      <div class="p-2">
+      <div class="p-2 md:pb-14">
         <main class="prose mx-auto">
           <h1 id="autoproof-quick-start-guide">AutoProof quick start guide</h1>
 
@@ -119,10 +120,10 @@
               ><code><span class="n">double</span> <span class="pi">(</span><span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">):</span> <span class="nc">INTEGER</span>
   <span class="k">do</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">7</span> <span class="k">then</span>
-	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="mi">0</span>
-	<span class="k">else</span>
-	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
-	<span class="k">end</span>
+    <span class="kv">Result</span> <span class="pi">:=</span> <span class="mi">0</span>
+  <span class="k">else</span>
+    <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
+  <span class="k">end</span>
   <span class="k">ensure</span>
     <span class="n">is_double</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span>
   <span class="k">end</span>
@@ -158,10 +159,10 @@
     <span class="n">a_is_big</span><span class="pi">:</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">100</span>
   <span class="k">do</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">7</span> <span class="k">then</span>
-	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="mi">0</span>
-	<span class="k">else</span>
-	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
-	<span class="k">end</span>
+    <span class="kv">Result</span> <span class="pi">:=</span> <span class="mi">0</span>
+  <span class="k">else</span>
+    <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
+  <span class="k">end</span>
   <span class="k">ensure</span>
     <span class="n">is_double</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span>
   <span class="k">end</span>
@@ -258,11 +259,11 @@
     <span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span>
   <span class="k">do</span>
     <span class="n">a</span> <span class="pi">:=</span> <span class="mi">5</span>
-	<span class="k">check</span> <span class="n">a_is_five</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">end</span>
-	<span class="k">check</span> <span class="n">a_is_not_seven</span><span class="pi">:</span> <span class="n">a</span> <span class="o">/=</span> <span class="mi">7</span> <span class="k">end</span>
-	<span class="n">a</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
-	<span class="k">check</span> <span class="n">a_is_ten</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">end</span>
-	<span class="k">check</span> <span class="n">a_is_five_again</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">end</span> <span class="c1">-- This fails</span>
+    <span class="k">check</span> <span class="n">a_is_five</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">end</span>
+    <span class="k">check</span> <span class="n">a_is_not_seven</span><span class="pi">:</span> <span class="n">a</span> <span class="o">/=</span> <span class="mi">7</span> <span class="k">end</span>
+    <span class="n">a</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
+    <span class="k">check</span> <span class="n">a_is_ten</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">end</span>
+    <span class="k">check</span> <span class="n">a_is_five_again</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">end</span> <span class="c1">-- This fails</span>
   <span class="k">end</span>
 </code></pre>
             </div>
@@ -272,7 +273,9 @@
             <code class="language-plaintext highlighter-rouge"
               >Check a_is_five_again be violated</code
             >. Removing the
-            <code class="language-plaintext highlighter-rouge">last_check</code>
+            <code class="language-plaintext highlighter-rouge"
+              >a_is_five_again</code
+            >
             assertion gives the
             <code class="language-plaintext highlighter-rouge"
               >Successfully verified</code
@@ -306,8 +309,10 @@
 
           <p>
             The order of precondition clauses is important. The first clause is
-            checked first, then it can be assumed for checking the second clause
-            and so on.
+            checked first, then it can be used for checking the second clause
+            and so on. In Eiffel terms, it is similar to precondition clauses to
+            be joined using
+            <code class="language-plaintext highlighter-rouge">and then</code>.
           </p>
 
           <div class="language-eiffel highlighter-rouge">
@@ -369,17 +374,17 @@
     <span class="n">a_is_five_or_ten_or_fifteen</span><span class="pi">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">or</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">or</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">15</span>
   <span class="k">do</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">then</span>
-	  <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">end</span>
-	<span class="k">else</span>
-	  <span class="k">check</span> <span class="n">a</span> <span class="o">/=</span> <span class="mi">5</span> <span class="k">end</span>
-	  <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">or</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">15</span> <span class="k">end</span>
-	  <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">then</span>
-	    <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">end</span>
-	  <span class="k">else</span>
-	    <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">15</span> <span class="k">end</span>
-	    <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">end</span> <span class="c1">-- This fails</span>
-	  <span class="k">end</span>
-	<span class="k">end</span>
+      <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">end</span>
+    <span class="k">else</span>
+      <span class="k">check</span> <span class="n">a</span> <span class="o">/=</span> <span class="mi">5</span> <span class="k">end</span>
+      <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">or</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">15</span> <span class="k">end</span>
+      <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">then</span>
+        <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">end</span>
+      <span class="k">else</span>
+        <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">15</span> <span class="k">end</span>
+        <span class="k">check</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">end</span> <span class="c1">-- This fails</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
   <span class="k">end</span>
 </code></pre>
             </div>
@@ -421,8 +426,8 @@
               ><code><span class="n">unreachable_demo</span>
   <span class="k">do</span>
     <span class="k">if</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">then</span>
-	  <span class="k">check</span> <span class="mi">2</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">end</span>
-	<span class="k">end</span>
+      <span class="k">check</span> <span class="mi">2</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">end</span>
+    <span class="k">end</span>
   <span class="k">end</span>
 </code></pre>
             </div>
@@ -454,11 +459,11 @@
               ><code><span class="n">check_false_demo</span>
   <span class="k">do</span>
     <span class="k">if</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">then</span>
-	  <span class="k">check</span> <span class="n">first</span><span class="pi">:</span> <span class="kc">False</span> <span class="k">end</span>
-	<span class="k">end</span>
-	<span class="k">if</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">or</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">then</span>
-	  <span class="k">check</span> <span class="n">second</span><span class="pi">:</span> <span class="kc">False</span> <span class="k">end</span>
-	<span class="k">end</span>
+      <span class="k">check</span> <span class="n">first</span><span class="pi">:</span> <span class="kc">False</span> <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">if</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">or</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">then</span>
+      <span class="k">check</span> <span class="n">second</span><span class="pi">:</span> <span class="kc">False</span> <span class="k">end</span>
+    <span class="k">end</span>
   <span class="k">end</span>
 </code></pre>
             </div>
@@ -521,7 +526,7 @@
     <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
   <span class="k">ensure</span>
     <span class="n">result_bigger</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">&gt;</span> <span class="n">a</span>
-	<span class="n">result_is_odd</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">\\</span> <span class="mi">2</span> <span class="o">/=</span> <span class="mi">0</span>
+    <span class="n">result_is_odd</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">\\</span> <span class="mi">2</span> <span class="o">/=</span> <span class="mi">0</span>
   <span class="k">end</span>
 </code></pre>
             </div>
@@ -574,7 +579,7 @@
 
           <p>
             Even though according to the body this feature returns a number
-            which is greater exactly by
+            which is greater that the passed value by exactly
             <code class="language-plaintext highlighter-rouge">1</code>, callers
             of this feature do not know this. Callers only see that the result
             is greater than the passed value.
@@ -587,13 +592,13 @@
               ><code><span class="n">call_demo</span> <span class="pi">(</span><span class="n">a</span><span class="pi">:</span> <span class="nc">INTEGER</span><span class="pi">):</span> <span class="nc">INTEGER</span>
   <span class="k">do</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">999</span> <span class="k">then</span>
-	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">more</span> <span class="pi">(</span><span class="n">a</span><span class="pi">)</span> <span class="c1">-- This fails</span>
-	<span class="k">end</span>
-	<span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">then</span>
-	  <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">more</span> <span class="pi">(</span><span class="n">a</span><span class="pi">)</span>
-	  <span class="k">check</span> <span class="kv">Result</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="k">end</span>
-	  <span class="k">check</span> <span class="kv">Result</span> <span class="o">=</span> <span class="mi">11</span> <span class="k">end</span> <span class="c1">-- This fails too</span>
-	<span class="k">end</span>
+      <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">more</span> <span class="pi">(</span><span class="n">a</span><span class="pi">)</span> <span class="c1">-- This fails</span>
+    <span class="k">end</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="k">then</span>
+      <span class="kv">Result</span> <span class="pi">:=</span> <span class="n">more</span> <span class="pi">(</span><span class="n">a</span><span class="pi">)</span>
+      <span class="k">check</span> <span class="kv">Result</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="k">end</span>
+      <span class="k">check</span> <span class="kv">Result</span> <span class="o">=</span> <span class="mi">11</span> <span class="k">end</span> <span class="c1">-- This fails too</span>
+    <span class="k">end</span>
   <span class="k">end</span>
 </code></pre>
             </div>
@@ -658,6 +663,35 @@
             routine’s precondition is not satisfiable, this routine will be
             <strong>Successfully verified</strong> irrespective of its body or
             postcondition. Most probably you do not want this!
+          </p>
+
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre
+                class="highlight"
+              ><code><span class="n">inconsistent_precondition</span><span class="pi">:</span> <span class="nc">INTEGER</span>
+  <span class="k">require</span>
+    <span class="n">contradiction</span><span class="pi">:</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">2</span>
+  <span class="k">do</span>
+    <span class="kv">Result</span> <span class="pi">:=</span> <span class="mi">10</span>
+  <span class="k">ensure</span>
+    <span class="n">result_is_25</span><span class="pi">:</span> <span class="kv">Result</span> <span class="o">=</span> <span class="mi">25</span>
+  <span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            This verifier’s output is
+            <code class="language-plaintext highlighter-rouge"
+              >Successfully verified</code
+            >, which can be surprising. However, it makes sense. In all cases
+            when the precondition is met (<code
+              class="language-plaintext highlighter-rouge"
+              >1 = 2</code
+            >), the postcondition holds. It is just that there are no such
+            states at all, so there is no state where postcondition does not
+            hold.
           </p>
 
           <p>
@@ -745,18 +779,23 @@
           </p>
 
           <p>
-            Loops in Eiffel have the
-            <code class="language-plaintext highlighter-rouge">from</code>
-            initialization part which can contain initialization instructions,
-            the
+            Loops in Eiffel have the following parts in this order. While some
+            parts are optional, most probably you need to include them to fully
+            specify the loop behavior.
+          </p>
+
+          <p>
+            The
+            <code class="language-plaintext highlighter-rouge">from</code> part
+            containing the optional initialization instructions, the optional
             <code class="language-plaintext highlighter-rouge">invariant</code>
-            part which can contain loop invariant assertions, the
+            part containing the loop invariant assertions, the required
             <code class="language-plaintext highlighter-rouge">until</code> part
-            which must contain one boolean expression which is the exit
-            condition, the
+            containing one boolean expression which is the exit condition, and
+            the optional
             <code class="language-plaintext highlighter-rouge">variant</code>
-            part which must contain one integer expression which is the loop
-            variant.
+            part containing one integer expression which is the
+            <em>loop variant</em>.
           </p>
 
           <p>
@@ -810,13 +849,13 @@
               ><code><span class="n">one_loop_iteration</span>
   <span class="k">require</span>
     <span class="n">invariant_assumed</span><span class="pi">:</span> <span class="n">loop_invariant</span>
-	<span class="n">loop_not_terminated</span><span class="pi">:</span> <span class="k">not</span> <span class="n">exit_condition</span>
+  <span class="n">loop_not_terminated</span><span class="pi">:</span> <span class="k">not</span> <span class="n">exit_condition</span>
   <span class="k">do</span>
     <span class="n">loop_body</span>
   <span class="k">ensure</span>
     <span class="n">invariant_preserved</span><span class="pi">:</span> <span class="n">loop_invariant</span>
-	<span class="n">variant_decreased</span><span class="pi">:</span> <span class="n">loop_variant</span> <span class="o">&lt;</span> <span class="k">old</span> <span class="n">loop_variant</span>
-	<span class="n">variant_non_neg</span><span class="pi">:</span> <span class="n">loop_variant</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="n">variant_decreased</span><span class="pi">:</span> <span class="n">loop_variant</span> <span class="o">&lt;</span> <span class="k">old</span> <span class="n">loop_variant</span>
+    <span class="n">variant_non_neg</span><span class="pi">:</span> <span class="n">loop_variant</span> <span class="o">&gt;=</span> <span class="mi">0</span>
   <span class="k">end</span>
 </code></pre>
             </div>
@@ -844,7 +883,7 @@
     <span class="n">loop_invariant</span>
   <span class="k">ensure</span>
     <span class="n">loop_invariant</span>
-	<span class="n">exit_condition</span>
+    <span class="n">exit_condition</span>
   <span class="k">end</span>
 </code></pre>
             </div>
@@ -857,25 +896,196 @@
             the exit condition holds before the first iteration.
           </p>
 
-          <h2 id="faq-and-common-problems">FAQ and common problems</h2>
-          <h3 id="invariant-might-not-hold-on-call-to-anywrap">
-            Invariant might not hold on call to
-            <code class="language-plaintext highlighter-rouge">{ANY}.wrap</code>
+          <h3 id="class-creators-create">
+            Class creators
+            <code class="language-plaintext highlighter-rouge">create</code>
           </h3>
           <p>
-            The error
-            <code class="language-plaintext highlighter-rouge"
-              >Invariant might not hold on call to {ANY}.wrap</code
-            >
-            means that AutoProof thinks that the invariant of the current object
-            must hold at this line of the program.
+            The procedures which can be used to create a new object of the class
+            are called <em>creation procedures</em>. Creation procedures are
+            specified in the optional
+            <code class="language-plaintext highlighter-rouge">create</code>
+            part of the class text.
           </p>
 
           <p>
-            If the error’s line number points to the
+            As a reminder, creator procedures are still available as features of
+            objects. AutoProof verifies such procedures two times in two
+            different contexts: as a normal procedure on an existing object and
+            as a creation procedure for a previously non-existing object.
+          </p>
+
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre class="highlight"><code><span class="k">class</span>
+  <span class="nc">MY_COUNTER</span>
+
+<span class="k">create</span>
+  <span class="n">make_empty</span>
+
+<span class="k">feature</span>
+  <span class="n">count</span><span class="pi">:</span> <span class="nc">INTEGER</span>
+
+  <span class="n">make_empty</span>
+    <span class="k">do</span>
+      <span class="c1">-- count := 0 -- Uncomment to fix verification</span>
+    <span class="k">ensure</span>
+      <span class="n">count_is_zero</span><span class="pi">:</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+
+          <p>
+            The class
+            <code class="language-plaintext highlighter-rouge"
+              >MY_CONTAINER</code
+            >
+            lists
+            <code class="language-plaintext highlighter-rouge">make_empty</code>
+            as a creation procedure. The verifier’s output contains two messages
+            for the two contexts of
+            <code class="language-plaintext highlighter-rouge">make_empty</code
+            >:
+          </p>
+
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <code class="language-plaintext highlighter-rouge"
+                    >MY_COUNTER.make_empty</code
+                  >
+                  <em>(creator)</em>
+                </td>
+                <td>
+                  <code class="language-plaintext highlighter-rouge"
+                    >Successfully verified.</code
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code class="language-plaintext highlighter-rouge"
+                    >MY_COUNTER.make_empty</code
+                  >
+                </td>
+                <td>
+                  <code class="language-plaintext highlighter-rouge"
+                    >Postcondition count_is_zero may be violated.</code
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            Note the <em>(creator)</em> mark in the first message. It signifies
+            that this is the verification result of the feature in the creation
+            context.
+          </p>
+
+          <p>
+            Indeed, when
+            <code class="language-plaintext highlighter-rouge">make_empty</code>
+            is used in creation,
+            <code class="language-plaintext highlighter-rouge">count</code> is
+            initialized by Eiffel to zero by default.
+          </p>
+
+          <p>
+            However, it is still possible to call
+            <code class="language-plaintext highlighter-rouge">make_empty</code>
+            on an existing object. In this case,
+            <code class="language-plaintext highlighter-rouge">count</code> can
+            have any value (other features could have changed it). To satisfy
+            the postcondition and fix the error, we can uncomment the
+            <code class="language-plaintext highlighter-rouge">count := 0</code>
+            instruction. This way
+            <code class="language-plaintext highlighter-rouge">make_empty</code>
+            is correct both as a creator and as a normal procedure.
+          </p>
+
+          <h3 id="class-invariants-invariant">
+            Class invariants
+            <code class="language-plaintext highlighter-rouge">invariant</code>
+          </h3>
+          <p>
+            Class invariant clauses are written at the end of the class after
+            the
+            <code class="language-plaintext highlighter-rouge">invariant</code>
+            keyword. In general, class invariant specifies the assertions which
+            must hold for objects of the class when they are visible.
+          </p>
+
+          <p>
+            There are much more nuances to class invariants. Please read the
+            <a href="/reif-site/tutorial/index.html">AutoProof tutorial</a> to
+            read more about invariants.
+          </p>
+
+          <p>
+            In this quick start guide we oversimplify and say that invariants
+            must hold at the beginning and at the end of procedures. This means
+            that procedures can assume the invariant (as if it was part of the
+            precondition) and must not break it (as if it was part of the
+            postcondition).
+          </p>
+
+          <div class="language-eiffel highlighter-rouge">
+            <div class="highlight">
+              <pre class="highlight"><code><span class="k">class</span>
+  <span class="nc">OVERFLOWING_COUNTER</span>
+
+<span class="k">feature</span>
+  <span class="n">count</span><span class="pi">:</span> <span class="nc">INTEGER</span>
+
+  <span class="n">increment</span>
+    <span class="k">do</span>
+      <span class="k">check</span> <span class="n">inv_before</span><span class="pi">:</span> <span class="o">-</span><span class="mi">10</span> <span class="o">&lt;=</span> <span class="n">count</span> <span class="k">and</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mi">10</span> <span class="k">end</span>
+      <span class="n">count</span> <span class="pi">:=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="c1">-- Uncomment the following to fix verification</span>
+      <span class="c1">-- if count &gt; 10 then</span>
+      <span class="c1">--   count := -10</span>
+      <span class="c1">-- end</span>
+    <span class="k">end</span>
+
+<span class="k">invariant</span>
+  <span class="n">lower_bound</span><span class="pi">:</span> <span class="o">-</span><span class="mi">10</span> <span class="o">&lt;=</span> <span class="n">count</span>
+  <span class="n">upper_bound</span><span class="pi">:</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mi">10</span>
+<span class="k">end</span>
+</code></pre>
+            </div>
+          </div>
+          <p>
+            Verifier’s output is
+            <code class="language-plaintext highlighter-rouge"
+              >Invariant upper_bound might not hold on call to {ANY}.wrap</code
+            >
+            and the line number is the line of the feature’s
             <code class="language-plaintext highlighter-rouge">end</code>
-            keyword of the feature, it means that the invariant must hold at the
-            end of the body of the feature.
+            keyword. This message means that the class invariant does not hold
+            when it must hold (end of the procedure, in this case). Indeed, if
+            <code class="language-plaintext highlighter-rouge">increment</code>
+            is called when
+            <code class="language-plaintext highlighter-rouge">count</code> is
+            exactly
+            <code class="language-plaintext highlighter-rouge">10</code>, the
+            procedure would increase
+            <code class="language-plaintext highlighter-rouge">count</code> and
+            break the invariant clause
+            <code class="language-plaintext highlighter-rouge">upper_bound</code
+            >. To fix the problem, we can uncomment the code which resets
+            <code class="language-plaintext highlighter-rouge">count</code> to
+            the lowest valid value if it overflows.
+          </p>
+
+          <p>
+            Note that the
+            <code class="language-plaintext highlighter-rouge">check</code>
+            instruction successfully verifies. It means that it is known that
+            the invariant holds at the beginning of the procedure.
           </p>
 
           <h2 id="further-reading">Further reading</h2>
